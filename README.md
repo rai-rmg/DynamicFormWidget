@@ -1,16 +1,24 @@
-# dynamic_form_widget
+# DynamicFormWidget
 
-A new Flutter project.
+The `DynamicFormWidget` is a versatile Flutter widget that allows you to create dynamic forms with various input fields such as text fields, radio buttons, select dropdowns, and checkboxes. This widget is designed to simplify the process of building forms with different input types based on your requirements.
+
+## Features
+
+- Supports a variety of input types, including:
+  - Text Fields
+  - Radio Buttons
+  - Select Dropdowns
+  - Checkboxes
+- Easily customizable to fit your form's needs.
+- Validates user input based on custom regular expressions.
+- Handles complex data structures, making it easy to manage form data.
+- Provides a convenient way to retrieve and process form data.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To use the `DynamicFormWidget` in your Flutter application, follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+1. Add the widget to your widget tree.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   ```dart
+   DynamicFormWidget(formFields: yourFormFieldsList)
