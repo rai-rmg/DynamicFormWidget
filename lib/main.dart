@@ -156,7 +156,7 @@ class _DynamicFormWidgetState extends State<DynamicFormWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ...getFormFields().map((field) {
+              ...widget.formFields.map((field) {
                 final id = field['id'].toString();
                 final question = field['question'] as String;
                 final answerType = field['answer_type'] as String;
