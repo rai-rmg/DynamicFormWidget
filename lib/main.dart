@@ -86,6 +86,28 @@ List<Map<String, dynamic>> getFormFields() {
 class DynamicFormPage extends StatelessWidget {
   const DynamicFormPage({super.key});
 
+    void handleFormSubmit(String formData, BuildContext context) {
+    // Vous pouvez traiter les données du formulaire ici
+    // Au lieu d'imprimer, affichez-les dans une boîte de dialogue
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Données du formulaire'),
+          content: Text(formData.toString()), // Convertir les données en chaîne
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fermer la boîte de dialogue
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -93,7 +115,8 @@ class DynamicFormPage extends StatelessWidget {
       child: Column(
         children: [
           DynamicFormWidget(
-              height: 520.0, width: 300.0, formFields: getFormFields()),
+              height: 350.0, width: 600.0, formFields: getFormFields(),
+              onSubmit: (formData) => handleFormSubmit(formData, context)),
         ],
       ),
     );
@@ -104,9 +127,12 @@ class DynamicFormWidget extends StatefulWidget {
   final List<Map<String, dynamic>> formFields;
   final double? width;
   final double? height;
+  final Function(String formData) onSubmit; // Déclaration de la callback
+
 
   const DynamicFormWidget(
-      {super.key, required this.formFields, required this.width, required this.height});
+      {super.key, required this.formFields, required this.width, required this.height,
+      required this.onSubmit});
 
   @override
   _DynamicFormWidgetState createState() => _DynamicFormWidgetState();
@@ -128,6 +154,7 @@ class _DynamicFormWidgetState extends State<DynamicFormWidget> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ...getFormFields().map((field) {
                 final id = field['id'].toString();
@@ -254,8 +281,7 @@ class _DynamicFormWidgetState extends State<DynamicFormWidget> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     final jsonString = jsonEncode(_formData);
-                    print(jsonString);
-                    // Faites ce que vous voulez avec le JSON généré, comme l'envoyer à un serveur ou le stocker localement.
+                    widget.onSubmit(jsonString); // Appel de la callback avec les données du formulaire
                   }
                 },
                 child: const Text('Submit'),
